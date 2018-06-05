@@ -9,10 +9,8 @@ Clear-Host
 
 #Define database and login
 $ServerName = "RPDEVSQLVS1.REALPOINTDEV.GMACCM.COM"
+#$ServerName = "LOCALHOST"
 $DBName = "MORA"
-$UtilUser = "rp_util_reader"
-#$UtilPwd = read-host "Password for" $UtilUser
-$UtilPwd = get-content "C:\Users\nateh\Projects\dba-repository\ImportUserPwd.txt"
 
 [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.SMO") | out-null
 $SMOserver = New-Object ('Microsoft.SqlServer.Management.Smo.Server') -argumentlist $ServerName
@@ -36,6 +34,7 @@ foreach ($ScriptThis in $Objects | where {!($_.IsSystemObject)}) {
 
 #Need to Add Some mkDirs for the different $Fldr=$ScriptThis.GetType().Name
 $scriptr = new-object ('Microsoft.SqlServer.Management.Smo.Scripter') ($SMOserver)
+$scriptr.Options.Encoding = [System.Text.Encoding]::ASCII
 $scriptr.Options.AppendToFile = $True            # specifies whether the script is appended to the end of the output file or overwrites it.
 $scriptr.Options.AllowSystemObjects = $False     # specifies whether system objects can be scripted.
 $scriptr.Options.ClusteredIndexes = $True        # specifies whether statements that define clustered indexes are included in the generated script.
@@ -48,6 +47,7 @@ $scriptr.Options.Permissions = $False            # specifies whether to include 
 $scriptr.Options.WithDependencies = $False       # specifies whether to include all dependent objects in the generated script.
 <#Script the Drop too#>
 $ScriptDrop = new-object ('Microsoft.SqlServer.Management.Smo.Scripter') ($SMOserver)
+$ScriptDrop.Options.Encoding = [System.Text.Encoding]::ASCII
 $ScriptDrop.Options.AppendToFile = $True
 $ScriptDrop.Options.AllowSystemObjects = $False
 $ScriptDrop.Options.ClusteredIndexes = $True
@@ -74,11 +74,11 @@ GO
 
 " + (Get-Content "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL" -Raw) | Set-Content "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL"
 (Get-Content "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL" -Raw) | Foreach-Object {$_ -replace 'SET ANSI_NULLS ON
-GO',''} | Out-File "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL"
+GO',''} | Out-File "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL" -Encoding ascii
 (Get-Content "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL" -Raw) | Foreach-Object {$_ -replace 'SET ANSI_NULLS OFF
-GO',''} | Out-File "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL"
+GO',''} | Out-File "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL" -Encoding ascii
 (Get-Content "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL" -Raw) | Foreach-Object {$_ -replace 'SET QUOTED_IDENTIFIER ON
-GO',''} | Out-File "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL"
+GO',''} | Out-File "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL" -Encoding ascii
 (Get-Content "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL" -Raw) | Foreach-Object {$_ -replace 'SET QUOTED_IDENTIFIER OFF
-GO',''} | Out-File "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL"
+GO',''} | Out-File "$SavePath\$DateFolder\$TypeFolder\$ScriptFile.SQL" -Encoding ascii
 } #This ends the loop
