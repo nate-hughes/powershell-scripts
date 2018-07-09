@@ -1,5 +1,5 @@
 ﻿#run from cmdline
-#C:\Users\nateh\Projects\powershell-scripts\ps_Concatenate-Scripts.ps1 "D:\SourceSafe\push\DML" "D:\SourceSafe\push\DML.sql"
+#C:\Users\nateh\Projects\powershell-scripts\ps_Concatenate-Scripts.ps1 "D:\SourceSafe\push\DBO\FN" "D:\SourceSafe\push\DBO\2_Combo_FN_VW_SP.sql"
 
 param(
  [string]$inpath,
