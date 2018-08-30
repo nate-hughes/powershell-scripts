@@ -311,3 +311,65 @@ Get-Process | Out-GridView
 
 
 ## Day 8 (Working with Snippets in the ISE)
+<#
+Snippets are a method to allow you to paste text into the ISE console with CTRL+J
+Default snippets: shipped with PowerShell
+Module-based snippets: for any imported module
+User-defined snippets: personal, created with New-ISESnippet cmdlet
+    When created, an XML file named the title of the snippet is created in the
+    $Home:\Documents\WindowsPowerShell\Snippets folder with an extension of “ps1xml”.
+    Snippets in the home folder will automatically be loaded. Snippets in other locations
+    will have to be loaded yourself.
+#>
+
+# To delete a snippet
+Get-IseSnippet
+Get-IseSnippet | Remove-Item
+
+# Generic error trapping
+New-IseSnippet -Title "Error Trap-Generic" -Description "Generic Error Trapping routine" -Text ‘# Handle any errors that occur
+Trap
+{
+    # Handle the error
+    $err = $_.Exception
+    write-host $err.Message
+    while( $err.InnerException )
+    {
+        $err = $err.InnerException
+        write-output $err.Message
+    };
+    # End the script.
+    break
+}'
+
+# Generic header routine for the script files
+# CaretOffset parameter places caret (aka cursor) at specified position
+New-IseSnippet -Title "SMO Header" -Description "SMO Generic Header" -Text '
+#Assign variables
+$Instance   = "localhost\"
+$DBName     = ""
+$SchemaName = ""
+$ObjectName = ""
+ 
+#Assign the SMO class to a variable
+$SMO        = "Microsoft.SqlServer.Management.Smo"
+ 
+# get the server
+$Server = New-Object ("$SMO.Server") "$Instance"
+ 
+# assign the database name to a variable
+$MyDB = $Server.Databases[$DBName]
+ 
+# assign the schema to a variable
+$Schema = $MyDB.Schemas[$SchemaName]
+ 
+' -CaretOffset 150
+
+
+## Day 9 (Getting Started with SMO)
+<#
+http://msdn.microsoft.com/en-us/library/ms162169.aspx: “SQL Server Management Objects (SMO) is a collection
+of objects that are designed for programming all aspects of managing Microsoft SQL Server.”
+#>
+
+

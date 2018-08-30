@@ -1,0 +1,40 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+    <Snippets  xmlns='http://schemas.microsoft.com/PowerShell/Snippets'>
+        <Snippet Version='1.0.0'>
+            <Header>
+                <Title>SMO Header</Title>
+                <Description>SMO Generic Header</Description>
+                <Author></Author>
+                <SnippetTypes>
+                    <SnippetType>Expansion</SnippetType>
+                </SnippetTypes>
+            </Header>
+
+            <Code>
+                <Script Language='PowerShell' CaretOffset='150'>
+                    <![CDATA[
+#Assign variables
+$Instance   = "localhost\"
+$DBName     = ""
+$SchemaName = ""
+$ObjectName = ""
+ 
+#Assign the SMO class to a variable
+$SMO        = "Microsoft.SqlServer.Management.Smo"
+ 
+# get the server
+$Server = New-Object ("$SMO.Server") "$Instance"
+ 
+# assign the database name to a variable
+$MyDB = $Server.Databases[$DBName]
+ 
+# assign the schema to a variable
+$Schema = $MyDB.Schemas[$SchemaName]
+ 
+]]>
+                </Script>
+            </Code>
+
+    </Snippet>
+</Snippets>
+
