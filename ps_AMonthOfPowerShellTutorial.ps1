@@ -372,4 +372,23 @@ http://msdn.microsoft.com/en-us/library/ms162169.aspx: “SQL Server Management 
 of objects that are designed for programming all aspects of managing Microsoft SQL Server.”
 #>
 
+<<<<<<< Updated upstream
+
+=======
+# get list of all SQL instances on this server along with Service Account, OS, Version, ProductLevel and Edition
+Get-ChildItem SQLSERVER:\SQL\LocalHost | 
+    Select-Object InstanceName, ServiceAccount, Platform, Version, ProductLevel, Edition |`
+    Format-Table -AutoSize
+
+# get all of the SQL Servers on your network
+[System.Data.Sql.SqlDataSourceEnumerator]::Instance.GetDataSources()
+
+# get list of all databases on an instance
+Get-ChildItem SQLServer:\SQL\localhost\Default\Databases
+
+
+<#
+STARTING RUNNING INTO ISSUES
+SWITCHED TO eBOOK "PowerShell for SQLServer including SQL 2016"
+#>
 
