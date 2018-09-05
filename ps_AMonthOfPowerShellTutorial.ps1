@@ -373,8 +373,14 @@ of objects that are designed for programming all aspects of managing Microsoft S
 #>
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 =======
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 # get list of all SQL instances on this server along with Service Account, OS, Version, ProductLevel and Edition
 Get-ChildItem SQLSERVER:\SQL\LocalHost | 
     Select-Object InstanceName, ServiceAccount, Platform, Version, ProductLevel, Edition |`
@@ -391,4 +397,10 @@ Get-ChildItem SQLServer:\SQL\localhost\Default\Databases
 STARTING RUNNING INTO ISSUES
 SWITCHED TO eBOOK "PowerShell for SQLServer including SQL 2016"
 #>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
