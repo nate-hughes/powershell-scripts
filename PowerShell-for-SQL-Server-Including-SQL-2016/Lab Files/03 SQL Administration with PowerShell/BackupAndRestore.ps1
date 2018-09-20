@@ -7,7 +7,7 @@ $server = New-Object -TypeName Microsoft.SqlServer.Management.Smo.Server -Argume
 
 $databasename = "AdventureWorks2014"
 $timestamp = Get-Date -format yyyyMMddHHmmss
-$backupfolder = "C:\Lab Files\Student\"
+$backupfolder = "D:\MSSQL12.MSSQLSERVER\SQL_BAK\"
 $backupfile = "$($databasename)_Full_$($timestamp).bak"
 $fullBackupFile = Join-Path $backupfolder $backupfile
 
@@ -19,6 +19,41 @@ Backup-SqlDatabase `
 -Initialize `
 -BackupSetName "$databasename Full Backup" `
 -CompressionOption On
+
+<#BACKUP
+This script will show you how to run a differential backup on a specified database.
+#>
+$databasename = "AdventureWorks2014"
+$timestamp = Get-Date -format yyyyMMddHHmmss
+$backupfolder = "D:\MSSQL12.MSSQLSERVER\SQL_BAK\"
+$backupfile = "$($databasename)_Diff_$($timestamp).bak"
+$diffBackupFile = Join-Path $backupfolder $backupfile
+
+Backup-SqlDatabase `
+-ServerInstance $instanceName `
+-Database $databasename `
+-BackupFile $diffBackupFile `
+-Checksum `
+-Initialize `
+-BackupSetName "$databasename Diff Backup" `
+-CompressionOption On `
+-Incremental
+
+<#BACKUP
+This script will show you how to run a transaction log backup on a specified database.
+#>
+$databasename = "AdventureWorks2014"
+$timestamp = Get-Date -format yyyyMMddHHmmss
+$backupfolder = "D:\MSSQL12.MSSQLSERVER\SQL_BAK\"
+$backupfile = "$($databasename)_Log_$($timestamp).bak"
+$logBackupFile = Join-Path $backupfolder $backupfile
+
+Backup-SqlDatabase `
+-ServerInstance $instanceName `
+-Database $databasename `
+-BackupFile $logBackupFile `
+-BackupSetName "$databasename Log Backup" `
+-BackupAction Log
 
 <#________________________________________________________________________________________
 
