@@ -149,6 +149,52 @@ get-eventlog application | gm
 get-eventlog application -Newest 50 | Sort TimeWritten, Index | Select Index, TimeWritten, Source | Out-File C:\Temp\LabOutput\AppLog.txt
 
 
-<# Ch. 7 The pipeline, deeper #>
+<# Ch. 8 Formatting—and why it’s done on the right #>
+help Format-Table
+Get-WmiObject Win32_BIOS | Format-Table -autoSize
+Get-Process | Format-Table -property ID,Name,Responding -autoSize
+Get-Service | Sort-Object Status | Format-Table -groupBy Status
+Get-Service | Format-Table Name,Status,DisplayName -autoSize -wrap
+
+help Format-List -Examples
+Get-Service | Format-List
+
+help Format-Wide
+Get-Process | Format-Wide name -Column 4
+
+#provide a column header that’s different from the property name
+Get-Service | Format-Table @{l='ServiceName';e={$_.Name}},Status,DisplayName
+#put a mathematical expression in place
+Get-Process | Format-Table Name, @{l='VM(MB)';e={$_.VM / 1MB -as [int]}} -autosize
+
+# 1.  Display a table of processes that includes only the process names, IDs, and whether or not they’re responding to Windows (the Responding property has that information). Have the table take up as little horizontal room as possible, but don’t allow any information to be truncated.
+Get-Process | Select-Object -Property ProcessName,Id,Responding | Format-Table -AutoSize -Wrap
+# 2.  Display a table of processes that includes the process names and IDs. Also include columns for virtual and physical memory usage, expressing those values in megabytes (MB).
+Get-Process | Select-Object -Property ProcessName,Id,@{l='VM(MB)';e={$_.VM / 1MB -as [int]}},@{l='PM(MB)';e={$_.PM / 1MB -as [int]}} -First 10 | Format-Table -AutoSize
+# 3.  Use Get-EventLog to display a list of available event logs. (Hint: You’ll need to read the help to learn the correct parameter to accomplish that.) Format the output as a table that includes, in this order, the log display name and the retention period. The column headers must be “LogName” and “RetDays.”
+Get-EventLog -List | Select @{l="LogName";e={$_.Log}},@{l="RetDays";e={$_.Retain}} | Format-Table -AutoSize
+# 4.  Display a list of services so that a separate table is displayed for services that are started and services that are stopped. Services that are started should be displayed first. (Hint: You’ll use a -groupBy parameter).
+Get-Service | Select -Property Status,@{l='Service';e={$_.Name}} | Sort @{Expression="Status";Descending=$true},Service | Format-Table -GroupBy Status
+
+
+<# Ch. 9 Filtering and comparisons #>
+Get-Service -Name e*,*s*
+Get-Service | Where-Object -filter { $_.Status -eq 'Running' }
+Get-Process | Where-Object -filter { $_.Name -notlike 'powershell*' } | Sort VM -Descending | Select -First 10 | Measure-Object -Property VM -Sum
+
+# 1.  Import the ServerManager module in Windows Server 2008 R2. Using the Get-WindowsFeature cmdlet, display a list of server roles and features that are currently installed.
+Import-Module ServerManager
+Get-WindowsFeature | Where {$_.InstallState -eq "Installed"}
+# 2.  Import the ActiveDirectory module in Windows Server 2008 R2. Using the Get-ADUser cmdlet, display a list of users whose -First property is equal to the special value $null. (Hint: This property isn’t retrieved from the directory by default. You’ll have to specify a parameter that forces this property to be retrieved if you want to look at it). Your final list should include only the user name of the users who meet this criterion. This is a tricky task, because getting $null into the filter criteria for the cmdlet’s own -filter parameter may not be possible.
+Import-Module ActiveDirectory
+help get-aduser -Full
+Get-ADUser -Filter * -Properties PasswordLastSet | Where {$_.PasswordLastSet -eq $null} | Select -Property UserPrincipalName
+# 3.  Display a list of hotfixes that are security updates.
+
+# 4.  Using Get-Service, is it possible to display a list of services that have a start type of Automatic, but that aren’t currently started?
+
+# 5.  Display a list of hotfixes that were installed by the Administrator, and which are updates.
+
+# 6.  Display a list of all processes running as either Conhost or Svchost.
 
 
