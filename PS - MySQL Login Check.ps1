@@ -5,7 +5,7 @@
 <#
 #Run to create encrypted password file(s).
 $credential = Get-Credential
-$credential.Password | ConvertFrom-SecureString | Set-Content D:\CredStore\prd-bestegg-web.txt
+$credential.Password | ConvertFrom-SecureString | Set-Content D:\CredStore\sbx.txt
 #>
 
 $search = "singari"
@@ -23,8 +23,10 @@ $mysql_array = @(
     
     [pscustomobject]@{name="uat-agent-desk";hostname="uat-agent-desk.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-auth-identity-service";hostname="uat-auth-identity-service.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="uat-bestegg-web-cluster";hostname="uat-bestegg-web-cluster.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-card";hostname="uat-card.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-csw";hostname="uat-csw.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="uat-cv360";hostname="uat-cv360.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-fico-service";hostname="uat-fico-service.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-loanpro-data-import";hostname="uat-loanpro-data-import.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-ods-internal-tools";hostname="uat-ods-internal-tools.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
@@ -35,8 +37,8 @@ $mysql_array = @(
     [pscustomobject]@{name="prd-auth-identity-service";hostname="prd-auth-identity-service.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-bestegg-web";hostname="prd-bestegg-web.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-card";hostname="prd-card.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="prd-cv360";hostname="prd-cv360.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-csw";hostname="prd-csw.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="prd-cv360";hostname="prd-cv360.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-fico-service";hostname="prd-fico-service.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="pre-prod-loanpro-data-import";hostname="pre-prod-loanpro-data-import.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-loanpro-data-import";hostname="prd-loanpro-data-import.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
@@ -46,17 +48,23 @@ $mysql_array = @(
 )
 $query = 'select User from mysql.user where user like "%' + $search + '%"'
 
+$username = "nate.hughes"
+$sbx_encrypted_password = Get-Content D:\CredStore\sbx.txt | ConvertTo-SecureString
+$uat_encrypted_password = Get-Content D:\CredStore\uat.txt | ConvertTo-SecureString
+$prd_encrypted_password = Get-Content D:\CredStore\prd.txt | ConvertTo-SecureString
+
 $mysql_array | ForEach {
     $mysql_name = $_.name
     $mysql_hostname = $_.hostname
-    $username = Switch ($mysql_name) {
-                    "sbx-cv360" {"cv360"}
-                    "prd-cv360" {"cv360"}
-                    "sbx-fico" {"aftermath"}
-                    default {"mfadmin"}
-                }
+    $environment = $mysql_name.substring(0,3)
+    
+    $encrypted_password = Switch ($environment) {
+        "sbx" {$sbx_encrypted_password}
+        "uat" {$uat_encrypted_password}
+        "prd" {$prd_encrypted_password}
+        "pre" {$prd_encrypted_password}
+    }
 
-    $encrypted_password = Get-Content D:\CredStore\$mysql_name.txt | ConvertTo-SecureString
     $credential = New-Object System.Management.Automation.PsCredential($username, $encrypted_password)
 
     $mysql = Open-MySqlConnection  -Credential $credential -Server $mysql_hostname -Port "3306"
