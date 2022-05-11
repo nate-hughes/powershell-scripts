@@ -17,6 +17,7 @@ $mysql_array = @(
     [pscustomobject]@{name="sbx-csw";hostname="sbx-csw.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-cv360";hostname="sbx-cv360.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-fico";hostname="sbx-fico.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="sbx-logging";hostname="sbx-logging.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-ods-internal-tools";hostname="sbx-ods-internal-tools.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-payment-recon-db";hostname="sbx-payment-recon-db.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-statements-api";hostname="sbx-statements-api.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
@@ -29,6 +30,7 @@ $mysql_array = @(
     [pscustomobject]@{name="uat-cv360";hostname="uat-cv360.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-fico-service";hostname="uat-fico-service.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-loanpro-data-import";hostname="uat-loanpro-data-import.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="uat-logging";hostname="uat-logging.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-ods-internal-tools";hostname="uat-ods-internal-tools.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-payment-recon-db";hostname="uat-payment-recon-db.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-statements-api";hostname="uat-statements-api.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
@@ -42,6 +44,7 @@ $mysql_array = @(
     [pscustomobject]@{name="prd-fico-service";hostname="prd-fico-service.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="pre-prod-loanpro-data-import";hostname="pre-prod-loanpro-data-import.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-loanpro-data-import";hostname="prd-loanpro-data-import.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="prd-logging";hostname="prd-logging.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-ods-internal-tools";hostname="prd-ods-internal-tools.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-payment-recon-db";hostname="prd-payment-recon-db.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-statements-api";hostname="prd-statements-api.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
@@ -59,10 +62,10 @@ $mysql_array | ForEach {
     $environment = $mysql_name.substring(0,3)
     
     $encrypted_password = Switch ($environment) {
-        "sbx" {$sbx_encrypted_password}
-        "uat" {$uat_encrypted_password}
-        "prd" {$prd_encrypted_password}
-        "pre" {$prd_encrypted_password}
+        "sbx" {$sbx_encrypted_password;break}
+        "uat" {$uat_encrypted_password;break}
+        "prd" {$prd_encrypted_password;break}
+        "pre" {$prd_encrypted_password;break}
     }
 
     $credential = New-Object System.Management.Automation.PsCredential($username, $encrypted_password)
@@ -71,5 +74,5 @@ $mysql_array | ForEach {
 
     $users = Invoke-SQLQuery -Query $query
 
-    $users | Select -Property @{Name = "Server"; Expression = {$mysql_name}}, User
+    $users | Select -Property @{Name = "Server"; Expression = {$mysql_name}}, User, @{Name = "Drop"; Expression = {"DROP USER '" + $users.User + "'@'%';"}}
 }
