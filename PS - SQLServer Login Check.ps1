@@ -2,7 +2,7 @@
 #Import-Module SqlServer
 #Remove-Module SqlServer
 
-$search = "singari"
+$search = "rogers"
 
 <#
 #Run to create encrypted password file(s).
@@ -11,21 +11,15 @@ $credential.Password | ConvertFrom-SecureString | Set-Content D:\CredStore\uat-n
 #>
 
 $sqlserver_array = @(
-    [pscustomobject]@{name="PRDAG1";hostname="PRDAG1.mf.dou"}
-    [pscustomobject]@{name="PRDAG2";hostname="PRDAG2.mf.dou"}
+    [pscustomobject]@{name="PRDEGGDBS01";hostname="PRDEGGDBS01.mf.dou"}
+    [pscustomobject]@{name="PRDEGGDBS02";hostname="PRDEGGDBS02.mf.dou"}
     [pscustomobject]@{name="PRDEGGDBS03";hostname="PRDEGGDBS03.mf.dou"}
     [pscustomobject]@{name="PRDEGGSSIS01";hostname="PRDEGGSSIS01.mf.dou"}
     [pscustomobject]@{name="UATSQL1";hostname="UATSQL1.mf.dou"}
-    [pscustomobject]@{name="STGEGGDBS01";hostname="STGEGGDBS01.mf.dou"}
-    [pscustomobject]@{name="STGEGGDBS02";hostname="STGEGGDBS02.mf.dou"}
-    [pscustomobject]@{name="STGEGGDBS03";hostname="STGEGGDBS03.mf.dou"}
-    [pscustomobject]@{name="prd-ephesoft";hostname="prd-ephesoft.cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="uat-ephesoft";hostname="uat-ephesoft.cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="prd-carbon-black-app-control";hostname="prd-carbon-black-app-control.cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="SBXSQL1";hostname="SBXSQL1.mf.dou"}
 
     [pscustomobject]@{name="prd-nservicebus";hostname="nservicebus-mint-adder.cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-nservicebus";hostname="uat-nservicebus-social-stinkbug.cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="stg-nservicebus";hostname="stg-nservicebus-model-sawfly.cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-nservicebus";hostname="sbx-nservicebus-obliging-bobcat.cweluei2okuj.us-east-1.rds.amazonaws.com"}
 )
 

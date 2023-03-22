@@ -8,10 +8,11 @@ $credential = Get-Credential
 $credential.Password | ConvertFrom-SecureString | Set-Content D:\CredStore\sbx.txt
 #>
 
-$search = "v-"
+$search = "hughes"
 
 $mysql_array = @(
     [pscustomobject]@{name="sbx-agent-desk";hostname="sbx-agent-desk.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="sbx-agentdesk-queue-service-mysql";hostname="sbx-agentdesk-queue-service-mysql.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-auth-identity-service";hostname="sbx-auth-identity-service.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-card";hostname="sbx-card.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-collections";hostname="sbx-collections.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
@@ -27,6 +28,7 @@ $mysql_array = @(
     [pscustomobject]@{name="sbx-statements-api";hostname="sbx-statements-api.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     
     [pscustomobject]@{name="uat-agent-desk";hostname="uat-agent-desk.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="uat-agentdesk-queue-service-mysql";hostname="uat-agentdesk-queue-service-mysql.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-auth-identity-service";hostname="uat-auth-identity-service.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-bestegg-web-cluster";hostname="uat-bestegg-web-cluster.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-card";hostname="uat-card.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
@@ -35,7 +37,7 @@ $mysql_array = @(
     [pscustomobject]@{name="uat-csw";hostname="uat-csw.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-fico-service";hostname="uat-fico-service.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-insights";hostname="uat-insights.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="uat-loanpro-data-import";hostname="uat-loanpro-data-import.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="uat-loanpro-data-import-serverless";hostname="uat-loanpro-data-import-serverless.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-logging";hostname="uat-logging.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-note-service";hostname="uat-note-service.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-ods-internal-tools";hostname="uat-ods-internal-tools.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
@@ -44,6 +46,7 @@ $mysql_array = @(
     [pscustomobject]@{name="uat-statements-api";hostname="uat-statements-api.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     
     [pscustomobject]@{name="prd-agent-desk";hostname="prd-agent-desk.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="prd-agentdesk-queue-service-mysql";hostname="prd-agentdesk-queue-service-mysql.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-auth-identity-service";hostname="prd-auth-identity-service.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-bestegg-web";hostname="prd-bestegg-web.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-card";hostname="prd-card.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
@@ -52,10 +55,9 @@ $mysql_array = @(
     [pscustomobject]@{name="prd-csw";hostname="prd-csw.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-fico-service";hostname="prd-fico-service.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-insights";hostname="prd-insights.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
-    # [pscustomobject]@{name="pre-prod-loanpro-data-import";hostname="pre-prod-loanpro-data-import.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="prd-loanpro-data-import";hostname="prd-loanpro-data-import.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-loanpro-data-import-serverless";hostname="prd-loanpro-data-import-serverless.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-logging";hostname="prd-logging.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="prd-mfgds";hostname="prd-mfgds.cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-note-service";hostname="prd-note-service.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-ods-internal-tools";hostname="prd-ods-internal-tools.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-payment-domain-db";hostname="prd-payment-domain-db.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
