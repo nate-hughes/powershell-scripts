@@ -5,7 +5,7 @@
 <#
 #Run to create encrypted password file(s).
 $credential = Get-Credential
-$credential.Password | ConvertFrom-SecureString | Set-Content D:\CredStore\sbx.txt
+$credential.Password | ConvertFrom-SecureString | Set-Content C:\CredStore\sbx.txt
 #>
 
 $search = "hughes"
@@ -67,9 +67,9 @@ $mysql_array = @(
 $query = 'select User from mysql.user where user like "%' + $search + '%"'
 
 $username = "nate.hughes"
-$sbx_encrypted_password = Get-Content D:\CredStore\sbx.txt | ConvertTo-SecureString
-$uat_encrypted_password = Get-Content D:\CredStore\uat.txt | ConvertTo-SecureString
-$prd_encrypted_password = Get-Content D:\CredStore\prd.txt | ConvertTo-SecureString
+$sbx_encrypted_password = Get-Content C:\CredStore\sbx.txt | ConvertTo-SecureString
+$uat_encrypted_password = Get-Content C:\CredStore\uat.txt | ConvertTo-SecureString
+$prd_encrypted_password = Get-Content C:\CredStore\prd.txt | ConvertTo-SecureString
 
 $mysql_array | ForEach {
     $mysql_name = $_.name

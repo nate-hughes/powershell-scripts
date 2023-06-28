@@ -23,10 +23,10 @@ $sqlserver_array = @(
     [pscustomobject]@{name="sbx-nservicebus";hostname="sbx-nservicebus-obliging-bobcat.cweluei2okuj.us-east-1.rds.amazonaws.com"}
 )
 
-$username = "mfadmin"
-$encrypted_password = Get-Content D:\CredStore\prd-nservicebus.txt | ConvertTo-SecureString
+$username = "nate.hughes"
+$encrypted_password = Get-Content C:\CredStore\prd.txt | ConvertTo-SecureString
 $prd_nservicebus_credential = New-Object System.Management.Automation.PsCredential($username, $encrypted_password)
-$encrypted_password = Get-Content D:\CredStore\uat-nservicebus.txt | ConvertTo-SecureString
+$encrypted_password = Get-Content C:\CredStore\uat.txt | ConvertTo-SecureString
 $uat_nservicebus_credential = New-Object System.Management.Automation.PsCredential($username, $encrypted_password)
 
 # Check for Logins
