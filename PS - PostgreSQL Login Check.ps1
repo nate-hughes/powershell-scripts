@@ -35,9 +35,9 @@ $postgresql_array = @(
 $query = "select usename from pg_user where usename like '%$search%'"
 
 $username = "nate.hughes"
-$sbx_encrypted_password = Get-Content C:\CredStore\sbx.txt | ConvertTo-SecureString
-$uat_encrypted_password = Get-Content C:\CredStore\uat.txt | ConvertTo-SecureString
-$prd_encrypted_password = Get-Content C:\CredStore\prd.txt | ConvertTo-SecureString
+$sbx_encrypted_password = Get-Content D:\CredStore\sbx.txt | ConvertTo-SecureString
+$uat_encrypted_password = Get-Content D:\CredStore\uat.txt | ConvertTo-SecureString
+$prd_encrypted_password = Get-Content D:\CredStore\prd.txt | ConvertTo-SecureString
 
 $postgresql_array | ForEach {
     $postgresql_name = $_.name

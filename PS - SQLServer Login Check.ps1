@@ -15,6 +15,7 @@ $sqlserver_array = @(
     [pscustomobject]@{name="PRDEGGDBS02";hostname="PRDEGGDBS02.mf.dou"}
     [pscustomobject]@{name="PRDEGGDBS03";hostname="PRDEGGDBS03.mf.dou"}
     [pscustomobject]@{name="PRDEGGSSIS01";hostname="PRDEGGSSIS01.mf.dou"}
+    [pscustomobject]@{name="PRDEGGSSRS01";hostname="PRDEGGSSRS01.mf.dou"}
     [pscustomobject]@{name="UATSQL1";hostname="UATSQL1.mf.dou"}
     [pscustomobject]@{name="SBXSQL1";hostname="SBXSQL1.mf.dou"}
 
@@ -24,9 +25,9 @@ $sqlserver_array = @(
 )
 
 $username = "nate.hughes"
-$encrypted_password = Get-Content C:\CredStore\prd.txt | ConvertTo-SecureString
+$encrypted_password = Get-Content D:\CredStore\prd.txt | ConvertTo-SecureString
 $prd_nservicebus_credential = New-Object System.Management.Automation.PsCredential($username, $encrypted_password)
-$encrypted_password = Get-Content C:\CredStore\uat.txt | ConvertTo-SecureString
+$encrypted_password = Get-Content D:\CredStore\uat.txt | ConvertTo-SecureString
 $uat_nservicebus_credential = New-Object System.Management.Automation.PsCredential($username, $encrypted_password)
 
 # Check for Logins

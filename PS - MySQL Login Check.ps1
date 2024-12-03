@@ -18,7 +18,6 @@ $mysql_array = @(
     [pscustomobject]@{name="sbx-collections";hostname="sbx-collections.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-comm";hostname="sbx-comm.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-csw";hostname="sbx-csw.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="sbx-fico";hostname="sbx-fico.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-insights";hostname="sbx-insights.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-logging";hostname="sbx-logging.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-note-service";hostname="sbx-note-service.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
@@ -35,7 +34,6 @@ $mysql_array = @(
     [pscustomobject]@{name="uat-collections";hostname="uat-collections.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-comm";hostname="uat-comm.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-csw";hostname="uat-csw.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="uat-fico-service";hostname="uat-fico-service.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-insights";hostname="uat-insights.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-loanpro-data-import-serverless";hostname="uat-loanpro-data-import-serverless.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-logging";hostname="uat-logging.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
@@ -53,7 +51,6 @@ $mysql_array = @(
     [pscustomobject]@{name="prd-collections";hostname="prd-collections.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-comm";hostname="prd-comm.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-csw";hostname="prd-csw.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="prd-fico-service";hostname="prd-fico-service.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-insights";hostname="prd-insights.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-loanpro-data-import-serverless";hostname="prd-loanpro-data-import-serverless.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-logging";hostname="prd-logging.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
@@ -67,9 +64,9 @@ $mysql_array = @(
 $query = 'select User from mysql.user where user like "%' + $search + '%"'
 
 $username = "nate.hughes"
-$sbx_encrypted_password = Get-Content C:\CredStore\sbx.txt | ConvertTo-SecureString
-$uat_encrypted_password = Get-Content C:\CredStore\uat.txt | ConvertTo-SecureString
-$prd_encrypted_password = Get-Content C:\CredStore\prd.txt | ConvertTo-SecureString
+$sbx_encrypted_password = Get-Content D:\CredStore\sbx.txt | ConvertTo-SecureString
+$uat_encrypted_password = Get-Content D:\CredStore\uat.txt | ConvertTo-SecureString
+$prd_encrypted_password = Get-Content D:\CredStore\prd.txt | ConvertTo-SecureString
 
 $mysql_array | ForEach {
     $mysql_name = $_.name
