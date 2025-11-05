@@ -19,9 +19,9 @@ $sqlserver_array = @(
     [pscustomobject]@{name="UATSQL1";hostname="UATSQL1.mf.dou"}
     [pscustomobject]@{name="SBXSQL1";hostname="SBXSQL1.mf.dou"}
 
-    [pscustomobject]@{name="prd-nservicebus";hostname="nservicebus-mint-adder.cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="uat-nservicebus";hostname="uat-nservicebus-social-stinkbug.cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="sbx-nservicebus";hostname="sbx-nservicebus-obliging-bobcat.cweluei2okuj.us-east-1.rds.amazonaws.com"}
+    #[pscustomobject]@{name="prd-nservicebus";hostname="nservicebus-mint-adder.cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
+    #[pscustomobject]@{name="uat-nservicebus";hostname="uat-nservicebus-social-stinkbug.cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
+    #[pscustomobject]@{name="sbx-nservicebus";hostname="sbx-nservicebus-obliging-bobcat.cweluei2okuj.us-east-1.rds.amazonaws.com"}
 )
 
 $username = "nate.hughes"

@@ -18,12 +18,12 @@ $mysql_array = @(
     [pscustomobject]@{name="sbx-collections";hostname="sbx-collections.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-comm";hostname="sbx-comm.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-csw";hostname="sbx-csw.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="sbx-customer-incentive-db";hostname="sbx-customer-incentive-db.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="sbx-decision-control-service";hostname="sbx-decision-control-service.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-insights";hostname="sbx-insights.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="sbx-logging";hostname="sbx-logging.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-note-service";hostname="sbx-note-service.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-ods-internal-tools";hostname="sbx-ods-internal-tools.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-payment-domain-db";hostname="sbx-payment-domain-db.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="sbx-payment-recon-db";hostname="sbx-payment-recon-db.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="sbx-statements-api";hostname="sbx-statements-api.cluster-cweluei2okuj.us-east-1.rds.amazonaws.com"}
     
     [pscustomobject]@{name="uat-agent-desk";hostname="uat-agent-desk.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
@@ -34,13 +34,14 @@ $mysql_array = @(
     [pscustomobject]@{name="uat-collections";hostname="uat-collections.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-comm";hostname="uat-comm.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-csw";hostname="uat-csw.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="uat-customer-incentive-db";hostname="uat-customer-incentive-db.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="uat-decision-control-service";hostname="uat-decision-control-service.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-insights";hostname="uat-insights.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-loanpro-data-import-serverless";hostname="uat-loanpro-data-import-serverless.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-logging";hostname="uat-logging.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-note-service";hostname="uat-note-service.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-ods-internal-tools";hostname="uat-ods-internal-tools.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-payment-domain-db";hostname="uat-payment-domain-db.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="uat-payment-recon-db";hostname="uat-payment-recon-db.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="uat-statements-api";hostname="uat-statements-api.cluster-cnnwq2bskppf.us-east-1.rds.amazonaws.com"}
     
     [pscustomobject]@{name="prd-agent-desk";hostname="prd-agent-desk.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
@@ -51,10 +52,12 @@ $mysql_array = @(
     [pscustomobject]@{name="prd-collections";hostname="prd-collections.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-comm";hostname="prd-comm.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-csw";hostname="prd-csw.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="prd-customer-incentive-db";hostname="prd-customer-incentive-db.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
+    [pscustomobject]@{name="prd-decision-control-service";hostname="prd-decision-control-service.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-insights";hostname="prd-insights.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-loanpro-data-import-serverless";hostname="prd-loanpro-data-import-serverless.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-logging";hostname="prd-logging.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
-    [pscustomobject]@{name="prd-mfgds";hostname="prd-mfgds.cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
+    #[pscustomobject]@{name="prd-mfgds";hostname="prd-mfgds.cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-note-service";hostname="prd-note-service.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-ods-internal-tools";hostname="prd-ods-internal-tools.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
     [pscustomobject]@{name="prd-payment-domain-db";hostname="prd-payment-domain-db.cluster-cnepzt3ilsdr.us-east-1.rds.amazonaws.com"}
